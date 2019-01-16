@@ -12,6 +12,9 @@
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.4.0",
+    "md5": "^2.2.1",
     "mongoose": "^5.4.4",
     "nodemon": "^1.18.9"
   }

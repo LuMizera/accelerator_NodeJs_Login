@@ -1,9 +1,9 @@
-'use strict';
+module.exports = async (app) => {
+	const fs = require('fs');
 
-const
-    users = require('./users')
-    controller = require('../controllers/test');
+	fs.readdirSync(__dirname)
+		.filter(file => file.includes('route'))
+		.map(route => require(`./${route.replace('.js', '')}`)(app))
 
-module.exports = (server) => {
-    server.ue('/users', )
-}
+	return app;
+};

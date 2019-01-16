@@ -1,9 +1,12 @@
 'use strict';
 
+global.SALT_KEY = "Aw367ebFK3nBjk9lF40A-AkYFA0nDCF5VIphuNRHk-tcf5qhL8pL2Nz0nPkLsh"
+
 const
     mongoose = require('mongoose'),
     express = require('express'),
     cors = require('cors'),
+    userMiddleware = require('../src/middlewares/userMiddleware'),
     bodyParser = require('body-parser'),
     db = require('../config/mongodb'),
     api = require('../config/api'),
@@ -21,6 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+app.use(userMiddleware)
 
 //HEADERS A SEREM ENVIADOS GLOBALMENTE
 app.use((req, res, next) => {
@@ -28,21 +32,22 @@ app.use((req, res, next) => {
     next()
 })
 
-require('../src/app')(app);
+//APP.JS ROTAS
+require('../src/routes/')(app);
 
 //CONEXAO MONGO
 mongoose.connect(db.connection, {
-    useNewUrlParser: true
-})
-.then(() => {
-    app.listen(api.port, () => {
-        console.log('-----------------------------------------------')
-        console.log(`API Rodando na porta: ${api.port}`)
-        console.log('-----------------------------------------------')
+        useNewUrlParser: true
+    })
+    .then(() => {
+        app.listen(api.port, () => {
+            console.log('-----------------------------------------------')
+            console.log(`API Rodando na porta: ${api.port}`)
+            console.log('-----------------------------------------------')
+        });
+    }).catch(error => {
+        // console.error(error), 
+        console.log("Não foi possivel conectar com o banco de dados :(")
     });
-}).catch(error => {
-    // console.error(error), 
-    console.log("Não foi possivel conectar com o banco de dados :(")
-});
 
 module.exports = app;
