@@ -20,4 +20,6 @@ exports.findOne = async (query) => {
     return await Auth.findOne(query)
 }
 
-exports.findOneAndUpdate 
+exports.findOneAndPopulate = async (query) => {
+    return await Auth.findOne(query).populate('userId')
+}

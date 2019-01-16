@@ -5,7 +5,7 @@ const
 
 module.exports = async function (req, res, next) {
     let authToken = req.headers.authorization
-    let userToken = await repository.findOne({token: authToken});
+    let userToken = await repository.findOneAndPopulate({token: authToken})
 
     if (userToken) {
         req.loggedUser = userToken.userId
