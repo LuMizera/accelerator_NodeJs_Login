@@ -3,10 +3,10 @@
 exports.get = async (req, res, next) => {
     try {
         res.status(200).send({
-            message: "Hello"
+            message: "Hello World!"
         })
     } catch (err) {
-        res.status(404).send({
+        res.status(400).send({
             message: "ERROR!"
         })
     }
